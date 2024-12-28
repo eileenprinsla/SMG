@@ -25,25 +25,6 @@ public class UserService {
     @Autowired
     private SlotRepository slotRepository;
 
-    public String registerUser(String name, String email, String password, String role, String year) {
-        // Check if the email already exists
-        Optional<User> existingUser = userRepository.findByEmail(email);
-        if (existingUser.isPresent()) {
-            return "Email already exists";
-        }
-
-        // Create and save new user
-        User newUser = new User();
-        newUser.setName(name);
-        newUser.setEmail(email);
-        newUser.setPassword(password);
-        newUser.setRole(role);
-        newUser.setYear(year);
-        userRepository.save(newUser);
-
-        return "User registered successfully";
-    }
-
     // User login
     public String login(String email, String password) {
         return userRepository.findByEmailAndPassword(email, password)

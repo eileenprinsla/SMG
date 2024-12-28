@@ -2,6 +2,8 @@ package com.smg.smg.controller;
 
 import com.smg.smg.entity.Slot;
 import com.smg.smg.entity.Booking;
+import com.smg.smg.entity.User;
+import com.smg.smg.repository.UserRepository;
 import com.smg.smg.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -15,14 +17,15 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private UserRepository userRepository;
+
     @PostMapping("/register")
-    public String register(@RequestParam String name,
-                           @RequestParam String email,
-                           @RequestParam String password,
-                           @RequestParam String role,
-                           @RequestParam String year) {
-        return userService.registerUser(name, email, password, role, year);
+    public String registerUser(@RequestBody User user) {
+        userRepository.save(user);
+        return "User registered successfully";
     }
+
 
     // User Login
     @PostMapping("/login")

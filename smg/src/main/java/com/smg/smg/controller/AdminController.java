@@ -3,8 +3,6 @@ package com.smg.smg.controller;
 import com.smg.smg.entity.Slot;
 import com.smg.smg.entity.Booking;
 import com.smg.smg.entity.User;
-import com.smg.smg.entity.status;
-import com.smg.smg.repository.SlotRepository;
 import com.smg.smg.repository.UserRepository;
 import com.smg.smg.service.AdminService;
 import com.smg.smg.service.SlotService;
@@ -26,25 +24,6 @@ public class AdminController {
 
     @Autowired
     private UserRepository userRepository;
-
-    public String registerUser(String name, String email, String password, String role, String year) {
-        // Check if the email already exists
-        Optional<User> existingUser = userRepository.findByEmail(email);
-        if (existingUser.isPresent()) {
-            return "Email already exists";
-        }
-
-        // Create and save new user
-        User newUser = new User();
-        newUser.setName(name);
-        newUser.setEmail(email);
-        newUser.setPassword(password);
-        newUser.setRole(role);
-        newUser.setYear(year);
-        userRepository.save(newUser);
-
-        return "User registered successfully";
-    }
 
     // Admin Register
     @PostMapping("/register")
@@ -88,7 +67,5 @@ public class AdminController {
     public List<Booking> manageWaitlist() {
         return adminService.manageWaitlist();
     }
-
-
 
 }
